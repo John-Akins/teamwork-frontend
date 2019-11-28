@@ -1,0 +1,66 @@
+.App {
+  text-align: center;
+  height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.login {
+  height: 500px;
+  margin-top: calc((100vh - 500px)/2);
+}
+
+.col .LoginForm {
+  height: 380px;
+  padding: 20px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+html,body {
+  height: 100vh;
+  width: 100%;
+}
+
+footer-copyright {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-footer {
+  padding-top: 0;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+}
+
+.brand-logo {
+  font-family: cursive;
+  margin: 0 auto
+  ;
+}
+
+.collapsible-footer {
+  display: flex;
+  justify-content: right;
+  flex-flow: row-reverse;  
+}
+
