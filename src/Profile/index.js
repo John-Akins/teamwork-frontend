@@ -17,7 +17,7 @@ class Profile extends Component {
         return (
                 <div className="row">
                     <div className="col col l7 m10  s12 offset-m1 offset-l1">
-                    <ul id="profile-data-card" className="profile-data-card grey lighten-4" style={{"overflow-y":" auto !important"}}>
+                    <ul id="profile-data-card" className="profile-data-card grey lighten-4" style={{"overflowY":" auto !important"}}>
                         <div className="row teal">
                             <div className="col s12" style={{"height": "15rem"}}>
                                 <span className="" style={{"width": "100%","height": "100%", "display": "block","padding": "1rem"}}>

@@ -8,7 +8,7 @@ import {
 import Feeds from '../Feeds'
 import Article from '../Articles'
 import Profile from '../Profile'
-import Users from '../Users'
+import UserWrapper from '../Users'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -78,16 +78,16 @@ class Dashboard extends Component {
             <Feeds api={ this.props.api } userSecrets={ this.props.userSecrets } />
           </Route>
           <Route exact path="/profile">
-            <Profile/>
+            <Profile api={ this.props.api } userSecrets={ this.props.userSecrets } />
           </Route>
           <Route exact path="/users">
-            <Users/>
+            <UserWrapper api={ this.props.api } userSecrets={ this.props.userSecrets } />
           </Route>
           <Route path="/feed/gif/:gifId">
             <div> GIFSS </div>
           </Route>
           <Route path='/feed/article/:articleId' Component={Article}>
-            <Article  api={ this.props.api } userSecrets={ this.props.userSecrets } />
+            <Article api={ this.props.api } userSecrets={ this.props.userSecrets } />
           </Route>
         </Switch>
       </section>          

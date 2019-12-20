@@ -15,6 +15,8 @@ class Feed extends Component {
         this.M.AutoInit()
     }   
 
+    
+
     render() {
         const dir = `/feed/${this.props.feedType}/${this.props.id}`
         return (
