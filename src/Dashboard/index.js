@@ -9,16 +9,46 @@ import Feeds from '../Feeds'
 import Article from '../Articles'
 import Profile from '../Profile'
 import UserWrapper from '../Users'
+import fetch from '../MakeRequest'
+
+const makeRequest = fetch.makeRequest;
 
 class Dashboard extends Component {
   constructor(props) {
     super(props)
+    this.M = window.M
     this.logout = this.logout.bind(this)
+    this.makeRequest = makeRequest
     this.state = {
-      activeFeedId : null
+      activeFeedId : null,
+      user : null
     }
   }
   
+
+  componentDidMount() {
+    makeRequest("GET", `${this.props.api}users`,{}, this.props.userSecrets)
+    .then((response) => {
+        if(response.status === "success") {
+          this.setUserData(response.data, this.props.userSecrets.userId)
+        } else {
+          this.M.toast({html: response.error, classes: 'rounded danger white-text'})                 
+        }
+    })
+    .catch((error) => {
+      this.M.toast({html: "request failed, please try again"+error, classes: 'rounded danger'})
+    })
+    return false;    
+  }
+
+  setUserData(users, userId) {
+    users.forEach((user) => {
+      if(user.userId === userId) {
+        return this.setState({ user })
+      }
+    })
+  }
+
   logout() {
     this.props.logout()
   }
@@ -78,7 +108,7 @@ class Dashboard extends Component {
             <Feeds api={ this.props.api } userSecrets={ this.props.userSecrets } />
           </Route>
           <Route exact path="/profile">
-            <Profile api={ this.props.api } userSecrets={ this.props.userSecrets } />
+            <Profile user = {this.state.user} />
           </Route>
           <Route exact path="/users">
             <UserWrapper api={ this.props.api } userSecrets={ this.props.userSecrets } />
