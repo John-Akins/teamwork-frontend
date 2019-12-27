@@ -2,15 +2,25 @@ import React, {Component} from 'react';
 import '../App.css';
 import Feed from './Feed';
 import fetch from '../MakeRequest'
+import request from '../Utilities/request'
 
-const makeRequest = fetch.makeRequest;
+const objectToFormData = request.objectToFormData
+const makeRequest = fetch.makeRequest
+const makeRequestNoFile = fetch.makeRequestNoFile
 
 class FetchedFeeds extends Component {
     constructor(props) {
         super(props)
         this.M = window.M
+        this.postGif = this.postGif.bind(this)
+        this.postArticle = this.postArticle.bind(this)
+        this.handleChangeArticle = this.handleChangeArticle.bind(this)
+        this.handleChangeGif = this.handleChangeGif.bind(this)        
+        this.validateInputs = this.validateInputs.bind(this)
         this.state = {
-            Feeds: {}
+            Feeds: {},
+            article: { title: "", article: "" },
+            gif: { title: "", image: "" }
         }
     }
 
@@ -32,6 +42,95 @@ class FetchedFeeds extends Component {
             this.M.toast({html: "request failed, please try again"+error, classes: 'rounded danger'})
         })      
     }
+
+    validateInputs() {
+        const article = this.state.article
+        const gif = this.state.gif
+        let isGifFormFullyFilled = false
+        let isArticleFormFullyFilled = false
+        for (const key in gif) {
+            if (gif.hasOwnProperty(key)) {
+                isGifFormFullyFilled = (gif[key] === "") ? false : true                 
+            }
+        }
+        for (const key in article) {
+            if (article.hasOwnProperty(key)) {
+                isArticleFormFullyFilled = (article[key] === "") ? false : true                 
+            }
+        }
+        return (isArticleFormFullyFilled === false && isGifFormFullyFilled === false) ? false : true
+    }
+
+    postGif(e) {
+        e.preventDefault()
+        const isFormFullyFilled = this.validateInputs()
+        if(isFormFullyFilled === true ) {            
+            const data = objectToFormData(this.state.gif)
+            makeRequest("POST", `${this.props.api}gifs`, data, this.props.userSecrets)
+            .then((response) => {
+                if(response.status === "success") {
+                    this.M.toast({html: response.data.message, classes: 'rounded center'})
+                    window.location.reload()                    
+                }
+                if(response.status === "error") {
+                    console.log(response.error)                    
+                }
+            })
+            .catch((error) => {
+                alert("request failed, please try again", error)
+            })
+        } else {
+            alert("Please fill all inputs")
+        }
+    }
+
+    postArticle(e) {
+        e.preventDefault()
+        const isFormFullyFilled = this.validateInputs()
+        if(isFormFullyFilled === true ) {            
+            const data = this.state.article
+            makeRequestNoFile("POST", `${this.props.api}articles`, data, this.props.userSecrets)
+            .then((response) => {
+                if(response.status === "success") {
+                    this.M.toast({html: response.data.message, classes: 'rounded center'})
+                    window.location.reload()                    
+                }
+                if(response.status === "error") {
+                    console.log(response.error)
+                }
+            })
+            .catch((error) => {
+                alert("request failed, please try again", error)
+            })
+        } else {
+            alert("Please fill all inputs")
+        }
+    }
+
+    handleChangeArticle(e) {
+        const value = e.target.type === "checkbox" ? (!!e.target.checked) : e.target.value
+        const name = e.target.name
+
+        this.setState((prevState) => {
+            prevState.article[name] = value 
+            return { prevState }
+        })
+    }    
+
+    handleChangeGif(e) {
+        const value = e.target.type === "checkbox" ? (!!e.target.checked) : e.target.value
+        const name = e.target.name
+
+        this.setState((prevState) => {
+            if(name === "image") {
+                const file =  document.querySelectorAll('input[type=file]')[0].files[0];
+                prevState.gif[name] = file;
+                return { prevState }
+            }
+            prevState.gif[name] = value 
+            return { prevState }
+        })
+    }        
 
     componentDidUpdate() {
         this.M.AutoInit()
@@ -89,16 +188,16 @@ class FetchedFeeds extends Component {
 
                     <div className="row">
                     <div id="post-article">
-                        <form className="col s12">
+                        <form className="col s12" onSubmit={this.postArticle}>
                             <div className="">
                                 <div className="input-field col s12">
-                                <input id="title" type="text" className="validate"/>
+                                <input name="title" type="text" className="validate" onChange={this.handleChangeArticle}/>
                                 <label htmlFor="text">Title</label>
                                 </div>
                             </div> 
                             <div className="">
                                 <div className="input-field col s12">
-                                <textarea id="content" className="materialize-textarea"></textarea>
+                                <textarea name="article" className="materialize-textarea"  onChange={this.handleChangeArticle}></textarea>
                                 <label htmlFor="textarea1">Content</label>
                                 </div>
                             </div>
@@ -110,10 +209,10 @@ class FetchedFeeds extends Component {
                         </form>
                     </div>
                     <div id="post-gif">
-                        <form className="col s12">
+                        <form className="col s12" id="postgif" onSubmit={this.postGif}>
                         <div className="">
                                 <div className="input-field col s12">
-                                <input id="title" type="text" className="validate"/>
+                                <input name="title" type="text" className="validate"  onChange={this.handleChangeGif}/>
                                 <label htmlFor="text">Title</label>
                                 </div>
                             </div> 
@@ -121,10 +220,10 @@ class FetchedFeeds extends Component {
                                 <div className="file-field input-field col s12">
                                     <div className="btn gray darkgrey-text">
                                         <span>File</span>
-                                        <input type="file"/>
+                                        <input name="image" type="file"  onChange={this.handleChangeGif} />
                                     </div>
                                     <div className="file-path-wrapper">
-                                        <input className="file-path validate" type="text"/>
+                                        <input className="file-path validate" type="text"  /> 
                                     </div>
                                 </div>   
                             </div> 

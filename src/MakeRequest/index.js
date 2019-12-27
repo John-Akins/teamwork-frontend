@@ -30,4 +30,21 @@ const makeRequest = async (verb, URL, data, userSecrets) => {
     }
 }
 
-export default { makeRequest }
+const makeRequestNoFile = async (verb, URL, data, userSecrets) => {
+    try {
+        const response = await fetch(URL, {
+          method: verb, //POST or 'PUT' or PATCH
+          body: JSON.stringify(data), // data can be `string` or {object}!
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token: ${userSecrets.token} userId: ${userSecrets.userId}`, 
+            }
+        });
+        return await response.json();
+    } catch (error) {
+        console.log(error)
+        console.error('Error:', error);        
+    }    
+}
+
+export default { makeRequest, makeRequestNoFile }
