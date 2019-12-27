@@ -4,6 +4,9 @@ import Login from "./Login"
 import ls from 'local-storage'
 import Dashboard from './Dashboard/index'
 
+// const localApi = "http://localhost:8080/api/v1/";
+const remoteApi = "https://teamwork-70.herokuapp.com/api/v1/";
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -14,7 +17,7 @@ class App extends Component {
           userId: "",
           token: "",          
         }, 
-        api: "http://localhost:8080/api/v1/"//"https://teamwork-70.herokuapp.com/api/v1/",
+        api: remoteApi,
     }
     this.logout = this.logout.bind(this)
   }

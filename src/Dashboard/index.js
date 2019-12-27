@@ -6,7 +6,8 @@ import {
   Link
 } from "react-router-dom";
 import Feeds from '../Feeds'
-import Article from '../Articles'
+import Article from '../Feeds/Article'
+import Gif from '../Feeds/Gif'
 import Profile from '../Profile'
 import UserWrapper from '../Users'
 import fetch from '../MakeRequest'
@@ -113,11 +114,13 @@ class Dashboard extends Component {
           <Route exact path="/users">
             <UserWrapper api={ this.props.api } userSecrets={ this.props.userSecrets } />
           </Route>
-          <Route path="/feed/gif/:gifId">
-            <div> GIFSS </div>
+          <Route path="/feed/gif/:gifId" render={(props) =>
+             <Gif api={ this.props.api } userSecrets={ this.props.userSecrets } {...props} />
+          }>
           </Route>
-          <Route path='/feed/article/:articleId' Component={Article}>
-            <Article api={ this.props.api } userSecrets={ this.props.userSecrets } />
+          <Route path='/feed/article/:articleId' render={(props) =>
+             <Article api={ this.props.api } userSecrets={ this.props.userSecrets } {...props}></Article>
+          }>
           </Route>
         </Switch>
       </section>          

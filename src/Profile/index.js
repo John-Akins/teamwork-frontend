@@ -49,9 +49,9 @@ class Profile extends Component {
                         <div className="row teal">
                             <div className="col s12" style={{"height": "15rem"}}>
                                 <span className="" style={{"width": "100%","height": "100%", "display": "block","padding": "1rem"}}>
-                                <img src="http://res.cloudinary.com/dydyvjqpb/image/upload/v1575034884/trs8vlmlrdxgtbxhgt9v.gif" alt="" className="circle profile-img" />
-                                <span className="white-text center h-name" style={{"display": "block"}}> Akinsola Akolawole</span>
-                                <h6 className="white-text center h-role" style={{"display": "block"}}> Sales Staff </h6>
+                                <img src={this.state.user.imageUrl} alt="" className="circle profile-img" />
+                                <span className="white-text center h-name" style={{"display": "block"}}> {this.state.user.firstName} {this.state.user.lastName}</span>
+                                <h6 className="white-text center h-role" style={{"display": "block"}}> {this.state.user.jobRole} </h6>
                                 </span>
                             </div>
                         </div>    
@@ -95,7 +95,7 @@ class Profile extends Component {
                         <div className="divider"></div>
 
                         <div className="input-field col s12 noselect">
-                            <input disabled  defaultValue={1} id="email" type="text" className="validate valid" defaultValue={this.state.user.email} />
+                            <input disabled id="email" type="text" className="validate valid" defaultValue={this.state.user.email} />
                             <label className="">Email</label>
                             </div>
                         <div className="divider"></div>
