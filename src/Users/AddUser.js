@@ -226,12 +226,12 @@ class AddUser extends Component {
                         <div className="input-field col s12">
                             <p>
                             <label>
-                                <input name="isAdmin" value="true" type="radio" checked={this.state.user.isAdmin == true ? true:false} onChange={this.handleChange}/>
+                                <input name="isAdmin" value="true" type="radio" checked={this.state.user.isAdmin === true ? true:false} onChange={this.handleChange}/>
                                 <span>System Admin</span>
                             </label>
 
                             <label>
-                                <input name="isAdmin" value="false" type="radio" checked={this.state.user.isAdmin == false ? true:false} onChange={this.handleChange}/>
+                                <input name="isAdmin" value="false" type="radio" checked={this.state.user.isAdmin === false ? true:false} onChange={this.handleChange}/>
                                 <span>Employee</span>
                             </label>
                             </p>                        

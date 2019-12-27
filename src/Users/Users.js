@@ -14,7 +14,6 @@ class Users extends Component {
 
         this.M = window.M;
         this.listRef = React.createRef();
-        this.makeRequest = makeRequest
         this.updateUsers = this.updateUsers.bind(this)
         this.mapUsers = this.mapUsers.bind(this)
         this.loadUser = this.loadUser.bind(this)

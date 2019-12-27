@@ -15,9 +15,10 @@ class Feeds extends Component {
   render() {
     return (
         <div>
-        <h5 className="page">Feed</h5>
-      <div className="grid-view">       
-        <FetchedFeeds  api={ this.props.api } userSecrets={ this.props.userSecrets }  />
+          <h5 className="page">Feed</h5>
+          <div className="grid-view">       
+          <FetchedFeeds  api={ this.props.api } userSecrets={ this.props.userSecrets}>
+          </FetchedFeeds>
          </div>
       </div>
     )

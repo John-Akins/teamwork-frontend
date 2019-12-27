@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import '../App.css';
 import Feed from './Feed';
+import fetch from '../MakeRequest'
+
+const makeRequest = fetch.makeRequest;
 
 class FetchedFeeds extends Component {
     constructor(props) {
         super(props)
-        this.M = window.M     
+        this.M = window.M
         this.state = {
             Feeds: {}
         }
@@ -13,22 +16,22 @@ class FetchedFeeds extends Component {
 
     componentDidMount() {        
         this.M.AutoInit()
-        fetch(this.props.api+'feed', {
-            method: 'get',
-            headers: { 
-              "Content-Type":"application/json", 
-              "Authorization":`token: ${this.props.userSecrets.token} userId: ${this.props.userSecrets.userId}`
+        makeRequest("GET", `${this.props.api}feed`,{}, this.props.userSecrets)
+        .then((response) => {
+            if(response.status === "success") {
+                this.M.toast({html: response.status, classes: 'rounded success'})
+                this.setState((prevState) => {
+                    prevState.Feeds = response.data      
+                    return { prevState }   
+                }) 
+            } else {
+                this.M.toast({html: response.error, classes: 'rounded danger white-text'})                 
             }
         })
-        .then(res => (typeof res === 'object') ? res.json() : res)
-        .then(res => {
-            this.setState((prevState) => {
-              prevState.Feeds = res.data      
-              return { prevState }   
-            }) 
-        })
-        .catch(err => console.log(err))
-    }   
+        .catch((error) => {
+            this.M.toast({html: "request failed, please try again"+error, classes: 'rounded danger'})
+        })      
+    }
 
     componentDidUpdate() {
         this.M.AutoInit()
@@ -41,7 +44,7 @@ class FetchedFeeds extends Component {
             if (!!feedArr && feedArr.length > 0) {
                 feedArr.forEach((feed) => {
                     Feeds.push(
-                        < Feed key={feed.id} title={feed.title} authorId={feed.authorId} id={feed.id} date={feed.createdOn}  feedType={feed.type} content={feed.content} />            
+                        < Feed key={feed.id} title={feed.title} authorId={feed.authorId} id={feed.id} date={feed.createdOn}  feedType={feed.type} content={feed.content} />
                     ) 
                 })
             }
@@ -60,7 +63,7 @@ class FetchedFeeds extends Component {
                             <form className="comment-form">
                     <div>
                     <div className="">
-                        <textarea id="textarea1" className="materialize-textarea" id="comment" style={{"border": "0 !important","height": "70px","boxShadow": "unset"}} placeholder="What's on your mind? "></textarea>
+                        <textarea className="materialize-textarea" style={{"border": "0 !important","height": "70px","boxShadow": "unset"}} placeholder="What's on your mind? "></textarea>
                         
                     </div>
                     </div>
@@ -127,7 +130,7 @@ class FetchedFeeds extends Component {
                             </div> 
                             <div className="">
                                 <div className="input-field col s12">
-                                <a className="waves-effect waves-light btn-small right">Submit</a>
+                                <button className="waves-effect waves-light btn-small right">Submit</button>
                                 </div>
                             </div>
                         </form>
