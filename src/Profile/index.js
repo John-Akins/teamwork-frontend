@@ -16,6 +16,7 @@ class Profile extends Component {
         this.M.AutoInit()
         if(this.props.user !== null) {
             this.setState((prevState) => {
+                window.location.reload()                    
                 prevState.user = this.props.user
                 return { prevState }
             })
