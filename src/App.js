@@ -14,8 +14,7 @@ class App extends Component {
           userId: "",
           token: "",          
         }, 
-        lastPage: "",
-        api: "https://teamwork-70.herokuapp.com/api/v1/",
+        api: "http://localhost:8080/api/v1/"//"https://teamwork-70.herokuapp.com/api/v1/",
     }
     this.logout = this.logout.bind(this)
   }
@@ -26,7 +25,7 @@ class App extends Component {
       prevState.userSecrets.userId = (!!prevState.isLoggedIn) ? ls.get("userId") : ""
       prevState.userSecrets.token = (!!prevState.userSecrets.userId) ? ls.get("token") : ""
       return { prevState }
-    })    
+    })
   }
 
   logout() {
@@ -59,7 +58,7 @@ class App extends Component {
       (!this.state.isLoggedIn) ?
       <Login Login={this.handleLogin} api={this.state.api} />
         :
-       <Dashboard api={this.state.api} userSecrets={this.state.userSecrets} logout={this.logout} />
+       <Dashboard api={this.state.api} userSecrets={this.state.userSecrets} logout={this.logout}/>
     )
   }
 }

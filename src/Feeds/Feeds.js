@@ -53,20 +53,20 @@ class FetchedFeeds extends Component {
                     <ul className="collection feed-wrapper" >
                 <li className="collection-item avatar comment-wrapper">
                         <i className="material-icons circle">person</i>                        
-                    <p>
+                    <div>
                         <a className="modal-trigger" href="#modal1" onClick={() => setTimeout(() => {
                             this.articleTabTrigger.click()
                         }, 500)} >
                             <form className="comment-form">
                     <div>
                     <div className="">
-                        <textarea id="textarea1" className="materialize-textarea" id="comment" style={{"border": "0 !important","height": "70px","box-shadow": "unset"}} placeholder="What's on your mind? "></textarea>
+                        <textarea id="textarea1" className="materialize-textarea" id="comment" style={{"border": "0 !important","height": "70px","boxShadow": "unset"}} placeholder="What's on your mind? "></textarea>
                         
                     </div>
                     </div>
                 </form>
                     </a>
-                    </p>
+                    </div>
                     </li>
                 </ul>
                     { (!!Feeds.length) ?  Feeds : 'No Feed to display' }
@@ -90,18 +90,18 @@ class FetchedFeeds extends Component {
                             <div className="">
                                 <div className="input-field col s12">
                                 <input id="title" type="text" className="validate"/>
-                                <label for="text">Title</label>
+                                <label htmlFor="text">Title</label>
                                 </div>
                             </div> 
                             <div className="">
                                 <div className="input-field col s12">
                                 <textarea id="content" className="materialize-textarea"></textarea>
-                                <label for="textarea1">Content</label>
+                                <label htmlFor="textarea1">Content</label>
                                 </div>
                             </div>
                             <div className="">
                                 <div className="input-field col s12">
-                                <button class="waves-effect waves-light btn-small right">Submit</button>
+                                <button className="waves-effect waves-light btn-small right">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -111,23 +111,23 @@ class FetchedFeeds extends Component {
                         <div className="">
                                 <div className="input-field col s12">
                                 <input id="title" type="text" className="validate"/>
-                                <label for="text">Title</label>
+                                <label htmlFor="text">Title</label>
                                 </div>
                             </div> 
                             <div className="">
-                                <div class="file-field input-field col s12">
-                                    <div class="btn gray darkgrey-text">
+                                <div className="file-field input-field col s12">
+                                    <div className="btn gray darkgrey-text">
                                         <span>File</span>
                                         <input type="file"/>
                                     </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text"/>
+                                    <div className="file-path-wrapper">
+                                        <input className="file-path validate" type="text"/>
                                     </div>
                                 </div>   
                             </div> 
                             <div className="">
                                 <div className="input-field col s12">
-                                <a class="waves-effect waves-light btn-small right">Submit</a>
+                                <a className="waves-effect waves-light btn-small right">Submit</a>
                                 </div>
                             </div>
                         </form>

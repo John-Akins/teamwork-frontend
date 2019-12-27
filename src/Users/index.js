@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import '../App.css';
-import AddUser from './AddUser'
-import EditUser from './EditUser'
+// import ls from 'local-storage'
+import Users from './Users'
 
-class Users extends Component {
+class UserWrapper extends Component {
     constructor(props) {
         super(props)
         this.M = window.M;
@@ -24,45 +24,21 @@ class Users extends Component {
                             </div>
                             <div className="input-field col l3 m3 s12 right">
                             <input id="icon_search" type="tel" className="validate search"/>
-                            <label for="icon_search">Search</label>
+                            <label htmlFor="icon_search">Search</label>
                             </div>
                         </div>
-                        <ul className="list collection col s12">
-                            <li className="collection-item avatar hoverable">   
-                                <img src="http://res.cloudinary.com/dydyvjqpb/image/upload/v1575034884/trs8vlmlrdxgtbxhgt9v.gif" alt="" className="circle" />
-                                <span className="purple-text title">Sales Staff</span>
-                                <p className="names">Jane Doe</p>
-                                <small className="green-text">Phone: 080123456781</small>
-                                <a className="waves-effect waves-dark white tooltipped modal-trigger" data-position="top" data-tooltip="Load details" data-userid="1234567891" href="#modal-edit-user">
-                                <i className="material-icons grey-text">more_vert</i>
-                                </a>
-                            </li>
-                            <li className="collection-item avatar hoverable">
-                                <img src="http://res.cloudinary.com/dydyvjqpb/image/upload/v1575034884/trs8vlmlrdxgtbxhgt9v.gif" alt="" className="circle"/>
-                                <span className="purple-text title">Store Keeper</span>
-                                <p className="names">Mark  Doe</p>
-                                <small className="green-text">Phone: 080123456782</small>
-                                <a className="waves-effect waves-dark white tooltipped modal-trigger" data-position="top" data-tooltip="Load details" data-userid="1234567892" href="#modal-edit-user">
-                                <i className="material-icons grey-text">more_vert</i>
-                                </a>
-                            </li>
-                            </ul>
-
-                        <ul className="pagination"><li className="active"><a className="page" href="#">1</a></li></ul>
+                            <Users  api={ this.props.api } userSecrets={ this.props.userSecrets }  />
+                        <ul className="pagination"><li className="active"><button className="btn-sm btn-flat page teal white-text" href="#">1</button></li></ul>
                     <div className="fixed-action-btn direction-top">
                     <a className="btn-floating btn-large modal-trigger teal waves-effect waves-light add-user tooltipped" href="#modal-add-user" data-position="top" data-tooltip="Add New Staff">
                         <i className="large material-icons">add</i></a>
                     </div>
                     </div>
-                    <div class="page-overlay"></div>
-                    <AddUser/>
-                    <EditUser/>                    
+                    <div className="page-overlay"></div>
                     </div>
                 </div>
-        )        
+        )
     }
-
 }
 
-export default Users
-
+export default UserWrapper
